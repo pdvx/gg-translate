@@ -1,0 +1,14 @@
+{
+	"name": "google_trans",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"author": "NuA",
+	"license": "ISC",
+	"scripts": {
+		"test": "node test.js"
+	},
+	"dependencies": {
+		"@google-cloud/translate": "^6.1.0"
+	}
+}
