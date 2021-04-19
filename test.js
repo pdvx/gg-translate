@@ -1,3 +1,14 @@
-const gg_trans = require('./index');
-gg_trans("Chào").then(console.log).catch(console.log);
-gg_trans("Chào thế giới").then(console.log).catch(console.log);
+const { createServer } = require('http');
+const express = require('express');
+require('dotenv').config();
+
+const port = process.env.PORT || 3001;
+const app = express();
+
+
+
+const server = createServer(app);
+server.listen(port, () => {
+  // Log a message when the server is ready
+  console.log(`Listening for events on ${server.address().port}`);
+});
