@@ -1,14 +1,18 @@
 {
-	"name": "google_trans",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"author": "NuA",
-	"license": "ISC",
-	"scripts": {
-		"test": "node test.js"
-	},
-	"dependencies": {
-		"@google-cloud/translate": "^6.1.0"
-	}
+  "name": "slack_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/events-api": "^3.0.0",
+    "@slack/web-api": "^6.2.0-rc.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
 }
