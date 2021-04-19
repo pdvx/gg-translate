@@ -1,18 +1,35 @@
-const { Translate } = require('@google-cloud/translate').v2;
-const path = require('path');
+const { WebClient } = require('@slack/web-api');
+const { createEventAdapter } = require('@slack/events-api');
+require('dotenv').config();
 
-const keyFile =
-	process.env.GOOGLE_APPLICATION_API_KEY ||
-	path.resolve(__dirname, './api-key.json');
-process.env.GOOGLE_APPLICATION_CREDENTIALS = keyFile;
+// Read a token from the environment variables
+const token = process.env.SLACK_OAUTH_TOKEN;
+const slackSigningSecret = process.env.SLACK_SIGNING_SECRET;
+// Initialize
+const web = new WebClient(token);
+let conversationId = "D01U8JSJMNK";
 
-const apiKey = require(keyFile);
-const translate = new Translate({ projectId: apiKey.project_id });
+// (async () => {
 
-module.exports = async function trans(input = '', { target = 'en' } = {}) {
-	if (typeof input !== 'string') {
-		throw new Error('Input text must be string');
-	}
-	const [translation] = await translate.translate(input, target);
-	return translation;
-};
+//     // Post a message to the channel, and await the result.
+//     // Find more arguments and details of the response: https://api.slack.com/methods/chat.postMessage
+//     const result = await web.chat.postMessage({
+//       text: 'Hello world!',
+//       channel: conversationId,
+//     });
+  
+//     // The result contains an identifier for the message, `ts`.
+//     console.log(`Successfully send message ${result.ts} in conversation ${conversationId}`);
+//   })();
+
+const slackEvents = createEventAdapter(slackSigningSecret);
+const port = process.env.PORT || 9999;
+
+slackEvents.on('message', (event) => {
+    console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
+  });
+  
+  (async () => {
+    const server = await slackEvents.start(port);
+    console.log(`Listening for events on ${server.address().port}`);
+  })();
